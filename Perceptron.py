@@ -25,7 +25,6 @@ def plotPoints(data):
 
     # Show legend
     plt.legend()
-
     # Show the plot
     plt.show()
 #plotPoints(data)
