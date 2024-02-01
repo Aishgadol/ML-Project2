@@ -27,7 +27,9 @@ def plotPoints(data):
     plt.legend()
     # Show the plot
     plt.show()
+
 #plotPoints(data)
+
 #create scaler
 mm_scaler=MinMaxScaler()
 #fit the data and transform it according to scaler
