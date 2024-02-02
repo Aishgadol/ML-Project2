@@ -40,7 +40,7 @@ data = np.insert(data, 0, 1, axis=1)
 #multiply every data that has label -1 with -1 so that for all x in dataset, g_i(x)>0
 data[labels==-1]*=(-1)
 
-def perceptron(data, labels, lr = 1.0):
+def perceptron(data, labels, lr = 1):
   # Implement here
   np.random.seed(42)
   #w=np.random.rand(len(data[0]))
@@ -73,7 +73,7 @@ def perceptron(data, labels, lr = 1.0):
     '''
   return w
 
-def plotAll(data,labels,w,bias,title):
+def plotAll(data,labels,w,bias):
     plt.scatter(data[labels == -1, 0], data[labels == -1, 1], label='Label -1', alpha=0.8)
     plt.scatter(data[labels == 1, 0], data[labels == 1, 1], label='Label 1', alpha=0.7)
     a, b, c = w[0], w[1], bias
@@ -91,7 +91,7 @@ def plotAll(data,labels,w,bias,title):
     # Set labels and title
     plt.xlabel('Feature 1')
     plt.ylabel('Feature 2')
-    plt.title(title)
+    plt.title("Line")
 
     # Show legend
     plt.legend()
@@ -101,14 +101,12 @@ def plotAll(data,labels,w,bias,title):
 
 weights=perceptron(data,labels)
 print(weights)
-#plotAll(orig_data,labels,weights[1:],weights[0])
-
 
 from sklearn.linear_model import Perceptron
 from sklearn.metrics import accuracy_score
 sk_p=Perceptron(tol=1e-3, random_state=42)
+plotAll(orig_data,labels,weights[1:],weights[0])
 sk_p.fit(orig_data,orig_labels)
-plotAll(orig_data,labels,sk_p.coef_[0],sk_p.intercept_[0],"sklearn perceptron line")
-plotAll(orig_data,labels,weights[1:],weights[0],"my perceptron line ")
 print(f'sklearn perceptron weights: {sk_p.coef_[0]}\nMy weights: {weights[1:]}'
       f'\nsk perc bias:{sk_p.intercept_[0]}\n my bias:{weights[0]}')
+
