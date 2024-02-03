@@ -46,7 +46,7 @@ def perceptron(data, labels, lr = 1):
   #w=np.random.rand(len(data[0]))
   w=np.ones(len(data[0]))
   batch_size=10
-  num_iterations=1000
+  num_iterations=20
   #approach 1, works, sorta
   for _ in range(num_iterations):
       for sample_index,sample in enumerate(data):
