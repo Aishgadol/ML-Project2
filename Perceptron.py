@@ -5,7 +5,7 @@ from IPython.display import display, clear_output
 from sklearn.preprocessing import MinMaxScaler
 
 column_names = ['Feature1', 'Feature2', 'Label']
-df=pd.read_csv('https://sharon.srworkspace.com/ml/datasets/hw2/exams.csv',header=None,names=column_names)
+df=pd.read_csv('exams.csv',header=None,names=column_names)
 #keep the original data somewhere, we'll scale it later for easier use
 orig_data=df.drop('Label',axis=1).to_numpy()
 orig_labels=df['Label'].to_numpy()
