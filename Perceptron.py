@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from IPython.display import display, clear_output
 from sklearn.preprocessing import MinMaxScaler
+
 column_names = ['Feature1', 'Feature2', 'Label']
 df=pd.read_csv('exams.csv',header=None,names=column_names)
 #keep the original data somewhere, we'll scale it later for easier use
