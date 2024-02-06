@@ -104,4 +104,4 @@ def plotPolySVM():
     axs[1].set_title(f'Validation dataset - {clf.score(X_val, y_val):.4f} accuracy')
 
     plt.show()
-plotPolySVM()
+
