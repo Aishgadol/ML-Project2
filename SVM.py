@@ -105,3 +105,30 @@ def plotPolySVM():
 
     plt.show()
 
+def plotRBF_SVM():
+    model = SVC(kernel='rbf', gamma=1.5, C=10)
+    clf = model.fit(X_train, y_train)
+
+    xx, yy = np.meshgrid(np.arange(-2, 2.2, 0.1), np.arange(-2, 2.2, 0.1))
+    xy = np.c_[xx.ravel(), yy.ravel()]
+
+    P = model.decision_function(xy).reshape(xx.shape)
+
+    fig, axs = plt.subplots(1, 2, figsize=(12, 4))
+
+    # Plot the training data on the first subplot
+    axs[0].contourf(xx, yy, P, alpha=0.8)
+    scatter1 = axs[0].scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap='bwr')
+    axs[0].set_xlabel('X')
+    axs[0].set_ylabel('Y')
+    axs[0].set_title(f'Train dataset - {clf.score(X_train, y_train):.4f} accuracy')
+
+    # Plot the validation data on the second subplot
+    axs[1].contourf(xx, yy, P, alpha=0.8)
+    scatter2 = axs[1].scatter(X_val[:, 0], X_val[:, 1], c=y_val, cmap='bwr')
+    axs[1].set_xlabel('X')
+    axs[1].set_ylabel('Y')
+    axs[1].set_title(f'Validation dataset - {clf.score(X_val, y_val):.4f} accuracy')
+
+    plt.show()
+plotRBF_SVM()
