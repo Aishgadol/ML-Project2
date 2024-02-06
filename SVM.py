@@ -131,8 +131,7 @@ def plotRBF_SVM():
     axs[1].set_title(f'Validation dataset - {clf.score(X_val, y_val):.4f} accuracy')
 
     plt.show()
-gammas = np.arange(0.1, 100, 0.1)
-cees = range(1, 30)
+
 
 def findBest_acc_gamma_c(gammas,cees):
     gammas = gammas
@@ -147,7 +146,19 @@ def findBest_acc_gamma_c(gammas,cees):
             clf = model.fit(X_val, y_val)
             accs.append(clf.score(X_val, y_val))
             if (clf.score(X_val, y_val) > max_acc):
+                print(f'found new best, gamma:{best_gamma}, c:{best_c}, with acc={max_acc}')
                 best_gamma = gamma
+                max_acc=clf.score(X_val, y_val)
                 best_c = c
     return accs,max_acc,best_gamma,best_c
-
+gammas = np.arange(0,50,0.5)
+cees = range(1,50)
+accs,max_acc,best_gamma,best_c=findBest_acc_gamma_c(gammas,cees)
+print(f'Best gamma: {best_gamma}, best c: {best_c}, max acc for them: {max_acc}')
+plt.figure(figsize=(15,6))
+plt.plot(gammas, accs, color='red')
+plt.xlabel('gamma')
+plt.ylabel('accuracy')
+plt.title('Tuning')
+plt.xticks(gammas)
+plt.show()
