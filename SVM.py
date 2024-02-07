@@ -177,9 +177,9 @@ def findBest_acc_gamma_c(gammas,cees):
                 max_acc=clf.score(X_val, y_val)
                 best_c = c
     return accs,max_acc,best_gamma,best_c
-'''
-gammas = np.arange(0,10,0.5)
-cees = range(1,20)
+
+gammas = np.arange(0,20,0.5)
+cees = range(1,30)
 accs,max_acc,best_gamma,best_c=findBest_acc_gamma_c(gammas,cees)
 plt.figure(figsize=(15,6))
 combinations = [f"{a}, {b}" for a in gammas for b in cees]
@@ -189,4 +189,3 @@ plt.ylabel('accuracy')
 plt.title(f'Tuning, Best gamma: {best_gamma}, best c: {best_c}, max acc for them: {max_acc}')
 plt.xticks(combinations)
 plt.show()
-'''
