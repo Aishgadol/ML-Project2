@@ -112,7 +112,6 @@ def plotPhi():
 
     xx, yy = np.meshgrid(np.arange(-2, 2.2, 0.1), np.arange(-2, 2.2, 0.1))
     xy = np.c_[xx.ravel(), yy.ravel()]
-
     P = model.decision_function(xy).reshape(xx.shape)
 
     fig, axs = plt.subplots(1, 2, figsize=(12, 4))
