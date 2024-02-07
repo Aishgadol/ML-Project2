@@ -107,7 +107,7 @@ def plotPolySVM():
 def myKernel(x,y):
     return np.dot(phi_func(x),phi_func(y).T)
 def plotPhi():
-    model = SVC(kernel=myKernel, degree=4, C=10)
+    model = SVC(kernel=myKernel, gamma=1.5, C=0.1)
     clf = model.fit(X_train, y_train)
     xx, yy = np.meshgrid(np.arange(-2, 2.2, 0.1), np.arange(-2, 2.2, 0.1))
     xy = np.c_[xx.ravel(), yy.ravel()]
@@ -115,6 +115,7 @@ def plotPhi():
     fig, axs = plt.subplots(1, 2, figsize=(12, 4))
     # Plot the training data on the first subplot
     axs[0].contourf(xx, yy, P, alpha=0.8)
+    axs[0].contour(xx, yy, P, colors='k', levels=[-1, 0, 1], alpha=0.5, linestyles=['--', '-', '--'],linewidths=2)
     scatter1 = axs[0].scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap='bwr')
     axs[0].set_xlabel('X')
     axs[0].set_ylabel('Y')
@@ -122,6 +123,7 @@ def plotPhi():
 
     # Plot the validation data on the second subplot
     axs[1].contourf(xx, yy, P, alpha=0.8)
+    axs[1].contour(xx, yy, P, colors='k', levels=[-1, 0, 1], alpha=0.5, linestyles=['--', '-', '--'],linewidths=2)
     scatter2 = axs[1].scatter(X_val[:, 0], X_val[:, 1], c=y_val, cmap='bwr')
     axs[1].set_xlabel('X')
     axs[1].set_ylabel('Y')
@@ -175,6 +177,7 @@ def findBest_acc_gamma_c(gammas,cees):
                 max_acc=clf.score(X_val, y_val)
                 best_c = c
     return accs,max_acc,best_gamma,best_c
+'''
 gammas = np.arange(0,10,0.5)
 cees = range(1,20)
 accs,max_acc,best_gamma,best_c=findBest_acc_gamma_c(gammas,cees)
@@ -186,3 +189,4 @@ plt.ylabel('accuracy')
 plt.title(f'Tuning, Best gamma: {best_gamma}, best c: {best_c}, max acc for them: {max_acc}')
 plt.xticks(combinations)
 plt.show()
+'''
