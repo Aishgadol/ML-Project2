@@ -169,7 +169,7 @@ def findBest_acc_gamma_c(gammas,cees):
     for gamma in gammas:
         for c in cees:
             model = SVC(kernel='rbf', gamma=gamma, C=c)
-            clf = model.fit(X_val, y_val)
+            clf = model.fit(X_train,y_train)
             accs.append(clf.score(X_val, y_val))
             if (clf.score(X_val, y_val) > max_acc):
                 print(f'found new best, gamma:{best_gamma}, c:{best_c}, with acc={max_acc}')
