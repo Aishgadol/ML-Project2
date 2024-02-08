@@ -107,7 +107,7 @@ def plotPolySVM():
 def myKernel(x,y):
     return np.dot(phi_func(x),phi_func(y).T)
 def plotPhi():
-    model = SVC(kernel=myKernel, gamma=1.5, C=0.1)
+    model = SVC(kernel=myKernel, gamma=1.5, C=10)
     clf = model.fit(X_train, y_train)
     xx, yy = np.meshgrid(np.arange(-2, 2.2, 0.1), np.arange(-2, 2.2, 0.1))
     xy = np.c_[xx.ravel(), yy.ravel()]
