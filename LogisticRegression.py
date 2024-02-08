@@ -50,3 +50,19 @@ def plot(data, labels, w, bias):
 
       plt.legend()
       plt.show()
+
+def plotDensities(data):
+    feature_names=df.columns.tolist()
+    num_features = len(data[0])
+    fig, axs = plt.subplots(1, num_features, figsize=(15, 4))
+
+    for i in range(num_features):
+        feature_values = [datapoint[i] for datapoint in data]
+        axs[i].hist(feature_values, bins=20, density=True, color='red', alpha=0.8)
+        axs[i].set_title(feature_names[i])
+        axs[i].set_xlabel(feature_names[i])
+        axs[i].set_ylabel('Density')
+
+    plt.tight_layout()
+    plt.show()
+    s
