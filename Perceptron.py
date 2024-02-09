@@ -105,7 +105,6 @@ print(weights)
 from sklearn.linear_model import Perceptron
 from sklearn.metrics import accuracy_score
 sk_p=Perceptron(tol=1e-3, random_state=42)
-
 plotAll(orig_data,labels,weights[1:],weights[0])
 sk_p.fit(orig_data,orig_labels)
 print(f'sklearn perceptron weights: {sk_p.coef_[0]}\nMy weights: {weights[1:]}'
