@@ -178,8 +178,8 @@ def findBest_acc_gamma_c(gammas,cees):
                 best_c = c
     return accs,max_acc,best_gamma,best_c
 
-gammas = np.arange(0,20,0.5)
-cees = range(1,30)
+gammas = np.arange(0,20,1)
+cees = range(1,20)
 accs,max_acc,best_gamma,best_c=findBest_acc_gamma_c(gammas,cees)
 plt.figure(figsize=(15,6))
 combinations = [f"{a}, {b}" for a in gammas for b in cees]

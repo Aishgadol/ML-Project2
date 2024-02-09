@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import warnings
 warnings.filterwarnings('ignore')
 from mpl_toolkits.mplot3d import Axes3D
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 def plot(data, labels, w, bias):
 
@@ -30,7 +32,7 @@ def plot(data, labels, w, bias):
   plt.title('3D Scatter Plot with 2D Labels')
   plt.show()
 
-  def plotRawData(data, labels):
+def plotRawData(data, labels):
       data_label_0 = [data[i] for i in range(len(data)) if labels[i] == -1]
       data_label_1 = [data[i] for i in range(len(data)) if labels[i] == 1]
 
@@ -65,4 +67,49 @@ def plotDensities(data):
 
     plt.tight_layout()
     plt.show()
-    s
+df = pd.read_csv('suv_data.csv')
+df.dropna()
+#dropping the label USER ID since it has no actual effect on our calculations
+df=df.drop('User ID',axis=1)
+#rewriting genders to 0/1 to use them for calculations
+df['Gender']=df['Gender'].replace({'Male' : 0 , 'Female':1})
+data=df.drop('Purchased',axis=1).to_numpy()
+labels=df['Purchased'].to_numpy()
+#switch all labels of 0 to -1 so we'll have labels in {-1,1}
+labels[labels == 0] = -1
+plotRawData(data,labels)
+plotDensities(data)
+#here we scale the data
+std_scaler=StandardScaler()
+#add 1 in first index for every sample to calculate bias term aswell
+data=np.concatenate((np.ones((len(data),1)),data),axis=1)
+X_train, X_test, y_train, y_test = train_test_split(data, labels, test_size=0.2, random_state=42)
+X_train_scaled=std_scaler.fit_transform(X_train)
+X_test_scaled=std_scaler.transform(X_test)
+X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.3, random_state=42)
+X_train_scaled_for_validation=std_scaler.fit_transform(X_train)
+X_val_scaled=std_scaler.transform(X_val)
+
+def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+# For now, ignore the lambda, you will need it later
+def Logistic_Regression_via_GD(P, y, lr, lamda=0):
+    w=np.ones(len(data[0]))
+    num_iterations=20
+    for _ in range(num_iterations):
+        gradient=np.zeros(len(w))
+        for x_index,x in enumerate(P):
+            sigmoid_x=sigmoid(np.dot(x,w))
+            if (sigmoid_x>0.5):
+                if(y[x_index]==1):
+                    gradient+=(-1*y[x_index]*x*(1-sigmoid_x))
+                else:
+                    gradient+=(-1*y[x_index]*x*sigmoid_x)
+            else if (sigmoid_x<0.5):
+                if(y[x_index]==-1):
+                    gradient += (-1 * y[x_index] * x * (1 - sigmoid_x))
+                else:
+                    gradient += (-1 * y[x_index] * x * sigmoid_x)
+        w+=lr*gradient
+
