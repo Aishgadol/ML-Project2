@@ -106,7 +106,7 @@ def Logistic_Regression_via_GD(P, y, lr, lamda=0):
                     gradient+=(-1*y[x_index]*x*(1-sigmoid_x))
                 else:
                     gradient+=(-1*y[x_index]*x*sigmoid_x)
-            else if (sigmoid_x<0.5):
+            elif (sigmoid_x<0.5):
                 if(y[x_index]==-1):
                     gradient += (-1 * y[x_index] * x * (1 - sigmoid_x))
                 else:
