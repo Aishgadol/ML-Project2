@@ -112,4 +112,5 @@ def Logistic_Regression_via_GD(P, y, lr, lamda=0):
                 else:
                     gradient += (-1 * y[x_index] * x * sigmoid_x)
         w+=lr*gradient
+print("hello")
 
