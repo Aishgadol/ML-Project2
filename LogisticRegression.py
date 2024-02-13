@@ -5,7 +5,7 @@ import warnings
 warnings.filterwarnings('ignore')
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 
 def plot(data, labels, w, bias):
 
@@ -80,15 +80,15 @@ labels[labels == 0] = -1
 plotRawData(data,labels)
 plotDensities(data)
 #here we scale the data
-std_scaler=StandardScaler()
-#add 1 in first index for every sample to calculate bias term aswell
+mm_scaler=MinMaxScaler()
+#added 1s tofirst row of every data sample to calculate bias term too
 data=np.concatenate((np.ones((len(data),1)),data),axis=1)
 X_train, X_test, y_train, y_test = train_test_split(data, labels, test_size=0.2, random_state=42)
-X_train_scaled=std_scaler.fit_transform(X_train)
-X_test_scaled=std_scaler.transform(X_test)
+X_train_scaled=mm_scaler.fit_transform(X_train)
+X_test_scaled=mm_scaler.transform(X_test)
 X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.3, random_state=42)
-X_train_scaled_for_validation=std_scaler.fit_transform(X_train)
-X_val_scaled=std_scaler.transform(X_val)
+X_train_scaled_for_validation=mm_scaler.fit_transform(X_train)
+X_val_scaled=mm_scaler.transform(X_val)
 
 def sigmoid(z):
     return 1 / (1 + np.exp(-z))
