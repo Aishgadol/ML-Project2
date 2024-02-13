@@ -95,7 +95,7 @@ def sigmoid(z):
 
 # For now, ignore the lambda, you will need it later
 def Logistic_Regression_via_GD(P, y, lr, lamda=0):
-    w=np.ones(len(data[0]))
+    w=np.zeros(len(data[0]))
     num_iterations=20
     for _ in range(num_iterations):
         gradient=np.zeros(len(w))
