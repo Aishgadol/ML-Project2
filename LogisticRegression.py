@@ -94,6 +94,7 @@ def sigmoid(z):
     return 1 / (1 + np.exp(-z))
 
 # For now, ignore the lambda, you will need it later
+'''this version is unused because we found a simpler way, less spagetti
 def Logistic_Regression_via_GD(P, y, lr, lamda=0):
     w=np.zeros(len(data[0]))
     num_iterations=20
@@ -113,9 +114,9 @@ def Logistic_Regression_via_GD(P, y, lr, lamda=0):
                 gradient += (-1 * y[x_index] * x * sigmoid_x)
         w+=lr*gradient
     return w
+'''
 
-
-'''more generalized version, has some flaws
+more generalized version, has some flaws
 def Logistic_Regression_via_GD(P,y,lr,lamda = 0):
     w=np.zeros(P.shape[1])
     num_iterations=200
@@ -127,4 +128,3 @@ def Logistic_Regression_via_GD(P,y,lr,lamda = 0):
         #w+=lr*gradient
         w+= (lr*gradient)/len(P)
     return w
-'''
