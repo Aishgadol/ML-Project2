@@ -136,3 +136,25 @@ def predict(x,w,b):
   if(sigmoid_pred>0.5):
     return 1
   return -1
+
+def getBestLR_fromRange(givenRange):
+    maxacc = 0
+    bestlr = 0
+    for lr in givenRange:
+        w, b = Logistic_Regression_via_GD(X_train_scaled, y_train, lr)
+        preds = np.zeros((len(y_train), 1))
+        for sample_index, sample in enumerate(X_train_scaled):
+            preds[sample_index] = predict(sample[1:], w, b)
+        accuracy = sum(1 for pred, y_train_sample in zip(preds, y_train) if pred == y_train_sample) / len(y_train)
+        if (accuracy > maxacc):
+            maxacc = accuracy
+            bestlr = lr
+    return bestlr
+bestfoundlr=getBestLR_fromRange(np.arange(0.1,10,0.1))
+print(f'best lr found: {bestfoundlr}')
+w, b = Logistic_Regression_via_GD(X_train_scaled, y_train, bestfoundlr)
+preds = np.zeros((len(y_train), 1))
+for sample_index, sample in enumerate(X_train_scaled):
+    preds[sample_index] = predict(sample[1:], w, b)
+accuracy = sum(1 for pred, y_train_sample in zip(preds, y_train) if pred == y_train_sample) / len(y_train)
+print(f'accuracy: {accuracy}')
