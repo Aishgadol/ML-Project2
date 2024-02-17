@@ -158,3 +158,14 @@ for sample_index, sample in enumerate(X_train_scaled):
     preds[sample_index] = predict(sample[1:], w, b)
 accuracy = sum(1 for pred, y_train_sample in zip(preds, y_train) if pred == y_train_sample) / len(y_train)
 print(f'accuracy: {accuracy}')
+
+#now we run the model with test data (scaled tho), we'll print the accuracy and plot the hyperplane for the test data
+#remember still no regulartization
+w,b=Logistic_Regression_via_GD(X_train_scaled,y_train,bestfoundlr)
+preds=np.zeros(len(y_test))
+counts=0.0
+for sample,label in zip(X_test_scaled,y_test):
+    if(predict(sample[1:],w,b)==label):
+        counts+=1
+print(f'test accuracy is: {counts/len(y_test)}')
+plot(X_test_scaled, y_test, w, b)
