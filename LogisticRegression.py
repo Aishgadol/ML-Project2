@@ -26,6 +26,9 @@ def plot(data, labels, w, bias):
   #ax.view_init(elev=0, azim=90, roll=45)
 
   # customize the plot
+  ax.set_xlim([0, np.max(data[:, 0])])
+  ax.set_ylim([0, np.max(data[:, 1])])
+  ax.set_zlim([0, np.max(data[:, 2])])
   ax.set_xlabel('X')
   ax.set_ylabel('Y')
   ax.set_zlabel('Z')
