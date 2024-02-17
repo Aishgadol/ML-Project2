@@ -115,16 +115,17 @@ def Logistic_Regression_via_GD(P, y, lr, lamda=0):
         w+=lr*gradient
     return w
 '''
-
-more generalized version, has some flaws
+#this version is the one we're working with
 def Logistic_Regression_via_GD(P,y,lr,lamda = 0):
-    w=np.zeros(P.shape[1])
-    num_iterations=200
+    w=np.ones(P.shape[1])
+    num_iterations=20
     for _ in range(num_iterations):
         gradient=np.zeros(len(w))
         for sample,label in zip(P,y):
-            sigmoid_x=sigmoid(np.dot(sample,w))
-            gradient-= label * sample *(1-sigmoid_x)
-        #w+=lr*gradient
-        w+= (lr*gradient)/len(P)
-    return w
+            sigmoid_x=sigmoid(w.T @ sample)
+            if(label==1):
+                gradient+=(label*sample*(1-sigmoid_x))
+            else:
+                gradient+=(label*sample*sigmoid_x)
+        w+=(lr*gradient)/len(P)
+    return w[1:],w[0]
