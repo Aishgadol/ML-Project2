@@ -118,7 +118,7 @@ def Logistic_Regression_via_GD(P, y, lr, lamda=0):
 #this version is the one we're working with
 def Logistic_Regression_via_GD(P,y,lr,lamda = 0):
     w=np.ones(P.shape[1])
-    num_iterations=20
+    num_iterations=100
     for _ in range(num_iterations):
         gradient=np.zeros(len(w))
         for sample,label in zip(P,y):
@@ -150,6 +150,7 @@ def getBestLR_fromRange(givenRange):
             maxacc = accuracy
             bestlr = lr
     return bestlr
+
 bestfoundlr=getBestLR_fromRange(np.arange(0.1,10,0.1))
 print(f'best lr found: {bestfoundlr}')
 w, b = Logistic_Regression_via_GD(X_train_scaled, y_train, bestfoundlr)
@@ -168,4 +169,4 @@ for sample,label in zip(X_test_scaled,y_test):
     if(predict(sample[1:],w,b)==label):
         counts+=1
 print(f'test accuracy is: {counts/len(y_test)}')
-plot(X_test_scaled, y_test, w, b)
+plot(X_test_scaled[:,1:], y_test, w, b)
