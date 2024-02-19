@@ -194,8 +194,8 @@ def getBestLamdaAndLr(lamdaRange,lrRange):
             if (accuracy > maxacc):
                 maxacc = accuracy
                 bestlr = lr
-            bestLamda=lamda
-    return bestlr
+                bestLamda=lamda
+    return bestLamda,bestlr
 
 bestlamda,bestlr=getBestLamdaAndLr(np.arange(0,5,0.1),np.arange(0.1,10,0.1))
 counts=0
