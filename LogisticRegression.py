@@ -178,9 +178,7 @@ plot(X_test_scaled[:,1:], y_test, w, b)
 '''To improve generalization, we use a tool that is called regularization.
 In simple words,  Lloss(w)=Llogistic-reg(w)+λ⋅∥w∥^2 .
 we updated the w,b calculating function and added + 2 * lamda * w to account for the regularization term
-important notices:
-we're doing this on X_train_scaled and X_test_scaled, unlike in the assignment where
-we're doing ths process on X_train_scaled_for_validation and X_val_scaled'''
+'''
 def getBestLamdaAndLr(lamdaRange,lrRange):
     maxacc = 0
     bestlr=0
@@ -188,14 +186,23 @@ def getBestLamdaAndLr(lamdaRange,lrRange):
     for lr in lrRange:
         for lamda in lamdaRange:
             counts=0.0
-            w, b = Logistic_Regression_via_GD(X_train_scaled, y_train, lr)
-            preds = np.zeros(len(y_test)
-            for sample,label in zip(X_test_scaled,y_test):
+            w, b = Logistic_Regression_via_GD(X_train_scaled_for_validation, y_train_cutoff, lr)
+            for sample,label in zip(X_val_scaled,y_val):
                 if(predict(sample[1:],w,b)==label):
                     counts+=1
             accuracy = counts/len(y_test)
             if (accuracy > maxacc):
                 maxacc = accuracy
                 bestlr = lr
+            bestLamda=lamda
     return bestlr
 
+bestlamda,bestlr=getBestLamdaAndLr(np.arange(0,5,0.1),np.arange(0.1,10,0.1))
+counts=0
+w, b = Logistic_Regression_via_GD(X_train_scaled, y_train, bestlr, bestlamda)
+maxacc_this=0
+for samepl,label in zip(X_test_scaled,y_test):
+    if(predict(sample[1:],w,b)==label):
+        counts+=1
+maxacc_this=counts/len(y_test)
+print(f'best lr found {bestfoundlr} with best lamda: {bestlamda} with accruacy: {maxacc_this}')
