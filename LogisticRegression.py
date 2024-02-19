@@ -174,3 +174,7 @@ for sample,label in zip(X_test_scaled,y_test):
         counts+=1
 print(f'test accuracy is: {counts/len(y_test)}')
 plot(X_test_scaled[:,1:], y_test, w, b)
+
+'''To improve generalization, we use a tool that is called regularization.
+In simple words,  Lloss(w)=Llogistic-reg(w)+λ⋅∥w∥^2 .
+we updated the w,b calculating function and added + 2 * lamda * w to account for the regularization term'''
