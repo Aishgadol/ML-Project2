@@ -56,6 +56,7 @@ def plotRawData(data, labels):
       plt.legend()
       plt.show()
 
+
 def plotDensities(data):
     feature_names=df.columns.tolist()
     num_features = len(data[0])
