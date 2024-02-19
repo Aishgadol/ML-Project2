@@ -88,9 +88,9 @@ mm_scaler=MinMaxScaler()
 #added 1s tofirst row of every data sample to calculate bias term too
 data=np.concatenate((np.ones((len(data),1)),data),axis=1)
 X_train, X_test, y_train, y_test = train_test_split(data, labels, test_size=0.2, random_state=42)
+X_train_cutoff, X_val, y_train_cutoff, y_val = train_test_split(X_train, y_train, test_size=0.3, random_state=42)
 X_train_scaled=np.concatenate((np.ones((len(X_train),1)),mm_scaler.fit_transform(X_train[:,1:])),axis=1)
 X_test_scaled=np.concatenate((np.ones((len(X_test),1)),mm_scaler.transform(X_test[:,1:])),axis=1)
-X_train_cutoff, X_val, y_train_cutoff, y_val = train_test_split(X_train, y_train, test_size=0.3, random_state=42)
 X_train_scaled_for_validation=np.concatenate((np.ones((len(X_train_cutoff),1)),mm_scaler.fit_transform(X_train_cutoff[:,1:])),axis=1)
 X_val_scaled=np.concatenate((np.ones((len(X_val),1)),mm_scaler.transform(X_val[:,1:])),axis=1)
 
