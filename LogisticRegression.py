@@ -131,7 +131,7 @@ def Logistic_Regression_via_GD(P,y,lr,lamda = 0):
                 gradient+=(label*sample*(1-sigmoid_x))
             else:
                 gradient+=(label*sample*sigmoid_x)
-        w+=(lr*gradient)/len(P)
+        w+=(lr*gradient + 2 * lamda * w)/len(P)
     return w[1:],w[0]
 
 #predict function to predict output for single sample
